@@ -1,0 +1,41 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\lubon\\source\\repos\\PhoneBook\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{FEA4350B-69AD-49F1-860F-F86C3861AAD3}|PhoneBook.vcxproj|C:\\Users\\lubon\\source\\repos\\PhoneBook\\PhoneBook.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{FEA4350B-69AD-49F1-860F-F86C3861AAD3}|PhoneBook.vcxproj|solutionrelative:PhoneBook.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PhoneBook.cpp",
+              "DocumentMoniker": "C:\\Users\\lubon\\source\\repos\\PhoneBook\\PhoneBook.cpp",
+              "RelativeDocumentMoniker": "PhoneBook.cpp",
+              "ToolTip": "C:\\Users\\lubon\\source\\repos\\PhoneBook\\PhoneBook.cpp",
+              "RelativeToolTip": "PhoneBook.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-10-13T18:44:20.83Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
