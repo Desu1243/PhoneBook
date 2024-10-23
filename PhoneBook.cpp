@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -27,6 +29,7 @@ public:
         newCell->number = newNumber;
         newCell->next = nullptr;
 
+        // adding new cell at the end of the list
         if (mainCell == nullptr) {
             mainCell = newCell;
         }
@@ -95,11 +98,26 @@ public:
         }
     }
 
-    // save data in file
+    int count() {
+        int count = 0;
+        if (mainCell != nullptr) {
+            count = 1;
+            Cell* temp = mainCell;
+
+            while (temp->next != nullptr) {
+                temp = temp->next;
+                count++;
+            }
+        }
+        return count;
+    }
+
+    // save contacts in file
     void saveToFile() {
 
     }
 
+    // read contacts from file
     void readFromFile() {
 
     }
@@ -107,26 +125,65 @@ public:
 };
 
 
+void printCommands() {
+    cout << endl << "w - wypisz kontakty; d - dodaj kontakt; u - usun kontakt; z - zamknij program" << endl;
+    cout << "Wybrana operacja: ";
+}
+
 int main()
 {
     PhoneBook phoneBook = PhoneBook();
+    char command = '0'; // z - exit; w - print records; d - add new record; u - delete record
+    string name, lastname, number;
+    int toRemove;
 
-    //TODO:
-    //read data from file
-    //in loop:
-    //get command from user 
-    // - display data 
-    // - add new record 
-    // - delete selected record 
-    // - save data in file
-    // - quit app
+    phoneBook.readFromFile();
+    cout << "Kasiazka telefoniczna" << endl;
+    
+    do {
+        printCommands();
+        cin >> command;
 
-    phoneBook.addRecord("Jan Kowal", "321654987");
-    phoneBook.addRecord("Michal Kowal", "123456789");
-    phoneBook.addRecord("Ola Gwozdz", "918273645");
-    phoneBook.printRecords();
+        switch (command) {
+        case 'W':
+        case 'w':
+            // print records from phone book
+            phoneBook.printRecords();
+            break;
 
-    phoneBook.deleteRecord(2);
-    phoneBook.printRecords();
+        case 'D':
+        case 'd':
+            // add new record to the phone book
+            cout << "Dodawanie nowego kontaktu.\nImie: ";
+            cin >> name;
+            cout << "Nazwisko: ";
+            cin >> lastname;
+            cout << "Numer telefonu: ";
+            cin >> number;
+            name = name + " " + lastname;
+            phoneBook.addRecord(name, number);
 
+            phoneBook.saveToFile();
+            break;
+
+        case 'U':
+        case 'u':
+            // remove selected record from the phone book
+            cout << "Wybierz kontakt do usuniecia: ";
+            cin >> toRemove;
+            if (phoneBook.count() >= toRemove && toRemove > 0) {
+                phoneBook.deleteRecord(toRemove);
+                phoneBook.saveToFile();
+            }
+            else {
+                cout << "Wybrano niepoprawny numer kontaktu.";
+            }
+            break;
+        default:
+            cout << "Niepoprawna komenda.";
+        }
+
+    } while (command != 'z');
+    
+    return 0;
 }
