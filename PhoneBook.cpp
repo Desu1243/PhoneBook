@@ -4,8 +4,9 @@
 
 using namespace std;
 
-/*  Mateusz Luboñski
-*   Console phone book aplication with linked list
+/*  
+*   Mateusz Luboñski
+*   Implementation of linked list as a phone book
 */
 
 struct Cell {
@@ -41,7 +42,6 @@ public:
 
             temp->next = newCell;
         }
-
     }
 
     void deleteRecord(int index) {
@@ -63,7 +63,9 @@ public:
         // deleting first record if index = 0
         if (toDelete == mainCell) {
             if (mainCell->next == nullptr) {
-                delete mainCell;
+                temp = mainCell;
+                delete temp;
+                mainCell = nullptr;
             }
             else {
                 temp = mainCell->next;
@@ -114,26 +116,61 @@ public:
 
     // save contacts in file
     void saveToFile() {
+        ofstream outputFile("kontakty.txt");
+        Cell* temp = mainCell;
+        string contact;
 
+        while (temp != nullptr) {
+            contact = temp->name + ";" + temp->number + "\n";
+            outputFile << contact;
+            temp = temp->next;
+        }
+        
+        outputFile.close();
     }
 
     // read contacts from file
     void readFromFile() {
+        string contact, name, number;
+        bool numberSection;
 
+        ifstream inputFile("kontakty.txt");
+
+        while (getline(inputFile, contact)) {
+            name = "";
+            number = "";
+            numberSection = false;
+            for (int i = 0; i < contact.length(); i++) {
+                if (contact[i] == ';') {
+                    numberSection = true;
+                    continue;
+                }
+
+                if (numberSection) {
+                    number += contact[i];
+                }
+                else {
+                    name += contact[i];
+                }
+
+            }
+            addRecord(name, number);
+        }
     }
 
 };
 
-
 void printCommands() {
-    cout << endl << "w - wypisz kontakty; d - dodaj kontakt; u - usun kontakt; z - zamknij program" << endl;
-    cout << "Wybrana operacja: ";
+    cout << endl << "Dostepne komendy: w - wypisz kontakty; d - dodaj kontakt; u - usun kontakt; z - zamknij program." << endl;
+    cout << "Wybrana komenda: ";
 }
 
 int main()
 {
     PhoneBook phoneBook = PhoneBook();
-    char command = '0'; // z - exit; w - print records; d - add new record; u - delete record
+    
+    // z - exit; w - print records; d - add new record; u - delete record
+    char command = '0';
     string name, lastname, number;
     int toRemove;
 
@@ -174,10 +211,15 @@ int main()
             if (phoneBook.count() >= toRemove && toRemove > 0) {
                 phoneBook.deleteRecord(toRemove);
                 phoneBook.saveToFile();
+                cout << "Usunieto kontakt nr " << toRemove << endl;
             }
             else {
                 cout << "Wybrano niepoprawny numer kontaktu.";
             }
+            break;
+        case 'Z':
+        case 'z':
+            cout << "Zamykanie programu.";
             break;
         default:
             cout << "Niepoprawna komenda.";
